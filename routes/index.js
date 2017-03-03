@@ -1,38 +1,36 @@
 var express = require('express');
 var router = express.Router();
+var apod = require('../helpers/apod');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-var express = require('express');
-var router = express.Router();
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-    res.render('index', { title: 'AstroPix' });
+  res.render('index', { title: 'AstroPix' });
 });
 
 
+/* GET a picture from the APOD service */
 router.get('/fetch_picture', function(req, res, next){
-
-    if (req.query.today)
-        res.send('todo: fetch today picture');
-    else if (req.query.random) {
-        res.send('todo: fetch random picture');
-    } else {
-        next();  // Send to next handler. Since there isn't one, this will end up at the 404 error handler, and send a 404 response
+    if (req.query.today) {
+        apod(function(data, error){
+            if (error) {
+                return res.render('apod_Error', { error : error.message });
+            }
+            return res.render('picture', { apod : data });
+        }, true);
     }
 
-});
+else if (req.query.random) {
+    apod(function(data, error) {
+        if (error) {
+            return res.render('apod_error', { error : error.message });
+        }
+            return res.render('picture', { apod : data });
+    });
 
-
-module.exports = router;
-
-
-
-
-
-
-module.exports = router;
+} else {
+        next();// Send to next route handler.
+        // Since we haven't defined one, this will end up at the 404 error handler
+        //  }});
+    }
+    });
+        module.exports = router;
