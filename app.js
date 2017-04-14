@@ -31,7 +31,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Configure sessions, and session storage in MongoDB
-var url = 'mongodb://localhost:27017/helloSessions';
+var url = 'process.env.MONGO_URL';
 
 var store = new MongoDBStore({
     uri : url,
