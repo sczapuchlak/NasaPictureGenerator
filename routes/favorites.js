@@ -29,5 +29,25 @@ router.post('/add', function(req, res, next){
     res.redirect('/favorites');
 
 });
+//delete favorite
+router.post('/delete', function (req, res, next) {
+    console.log(req.body);
+
+
+
+        if (err) {
+            return next(err);
+        }
+        //Check if this image is already in array
+        for (var x = 0 ; x < req.session.favorites.length ; x++) {
+            if (req.session.favorites[x].date == req.body.date) {
+                //console.log('This is already a favorite');
+                req.session.favorites[x].delete;
+                return res.redirect('back');   // Back to previous page
+            }
+        }
+        return res.redirect('/');
+    });
+
 
 module.exports = router;
