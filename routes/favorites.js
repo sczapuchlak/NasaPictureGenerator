@@ -31,19 +31,17 @@ router.post('/add', function(req, res, next){
 });
 //delete favorite
 router.post('/delete', function (req, res, next) {
-    console.log(req.body);
+    //console.log(req.body);
 
 
-
-        if (err) {
-            return next(err);
-        }
         //Check if this image is already in array
         for (var x = 0 ; x < req.session.favorites.length ; x++) {
-            if (req.session.favorites[x].date == req.body.date) {
-                //console.log('This is already a favorite');
-                req.session.favorites[x].delete;
-                return res.redirect('back');   // Back to previous page
+            if (req.session.favorites[x].date == req.body.name) {
+                console.log('This is already a favorite');
+               delete req.session.favorites[x];
+               // return res.redirect('back');   // Back to previous page
+
+
             }
         }
         return res.redirect('/');
