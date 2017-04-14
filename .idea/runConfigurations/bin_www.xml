@@ -3,6 +3,7 @@
     <envs>
       <env name="DEBUG" value="astropix:*" />
       <env name="APOD_API_KEY" value="UkWB2rEhsHltY0DicqYKPYxWdMPea51PBxH70zC2" />
+      <env name="MONGO_URL" value="mongodb://sczapuchlak:boomboom@ds161190.mlab.com:61190/flower" />
     </envs>
     <browser url="http://localhost:3000/" />
     <profiling v8-profiler-path="" />
