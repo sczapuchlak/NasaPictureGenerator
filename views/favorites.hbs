@@ -7,7 +7,7 @@
         </a>
         <p class="favtitle">{{this.title}}</p>
         <p class="favdate">{{this.date}}</p>
-        <form action="favorites/delete" method="POST"><button type ="submit" id="deleteButton">Delete this Favorite?</button><input type="hidden" name="name" value="{{this.date}}"></form></p>
+        <form action="favorites/delete" method="POST"><button type ="submit" id="deleteButton">Delete this Favorite?</button><input type="hidden" name="name" value="{{this.name}}"></form></p>
     </div>
 {{else}}
     <p>No favorites saved yet.</p>
