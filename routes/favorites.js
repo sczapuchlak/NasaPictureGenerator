@@ -1,49 +1,57 @@
+
 var express = require('express');
 var router = express.Router();
 
-
-/* GET favorites page. */
 router.get('/', function(req, res, next) {
     res.render('favorites', {favorites : req.session.favorites});
 });
 
+router.post('/add', function(req, res, next) {
 
-/* POST Add new favorite */
-router.post('/add', function(req, res, next){
+    //console.log(req.session.favorites.length);
 
-    // If no favorites array, create one
     if (!req.session.favorites) {
-        req.session.favorites = [] ; //Create empty array
+        req.session.favorites = [];
     }
 
-    //Check if this image is already in array
-    for (var x = 0 ; x < req.session.favorites.length ; x++) {
+
+
+
+    for (var x = 0; x < req.session.favorites.length; x++) {
+        console.log(req.session.favorites);
         if (req.session.favorites[x].date == req.body.date) {
             console.log('This is already a favorite');
-            return res.redirect('back');   // Back to previous page
+            return res.redirect('back');
         }
     }
 
-    // If not, add to array and redirect to favorites page
     req.session.favorites.push(req.body);
     res.redirect('/favorites');
+});
+
+
+router.post('/delete', function(req, res, next) {
+    // req.db.collection('astropix').deleteOne(req.body, function(err) {
+    //     if (err) {
+    //         return next(err);
+    //     }
+    //     return res.redirect('back');
+    // })
+    console.log("there are this many items in array: " + req.session.favorites.length);
+    for (var x = 0; x < req.session.favorites.length; x++) {
+        console.log(req.session.favorites[x].date);
+        if (req.session.favorites[x].date == req.body.date) {
+// req.session.favorites[x].
+            console.log("goodbye: " + req.session.favorites[x].date);
+             delete req.session.favorites[x];
+            // req.session.favorites.remove(x);
+            console.log(req.session.favorites[x]);
+             req.session.favorites.splice(x,1);
+            return res.redirect('back');
+        }
+    }
 
 });
-//delete favorite
-router.post('/delete', function (req, res, next) {
-    console.log(req.body);
-
-
-        //Check if this image is already in array
-        for (var x = 0 ; x < req.session.favorites.length ; x++) {
-            if (req.session.favorites[x].date == req.body.date) {
-                //console.log('This is already a favorite');
-                req.session.favorites[x].delete;
-               // return res.redirect('back');   // Back to previous page
-            }
-        }
-        return res.redirect('/');
-    });
 
 
 module.exports = router;
